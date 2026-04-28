@@ -9,3 +9,43 @@
 }
 
 @import "tailwindcss";
+
+.react-datepicker {
+  width: 100%;
+  border: 0;
+  font-family: var(--font-rubik);
+}
+
+.react-datepicker__month-container {
+  width: 100%;
+}
+
+.react-datepicker__header {
+  border-bottom: 1px solid #e5e7eb;
+  background: white;
+}
+
+.react-datepicker__day-names,
+.react-datepicker__week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+  width: auto;
+  min-height: 2rem;
+  line-height: 2rem;
+  margin: 0.1rem;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background: black;
+  color: white;
+}
+
+.react-datepicker__day:hover {
+  background: hsl(0, 94%, 66%);
+  color: white;
+}

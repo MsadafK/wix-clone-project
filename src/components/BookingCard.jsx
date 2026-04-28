@@ -1,36 +1,56 @@
 import { useNavigate } from "react-router-dom";
 
-const BookingCard = ({ title, time, type, image, id }) => {
+const BookingCard = ({ title, time, type, image, description, id }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate(`/book-online/${id}/schedule`, {
-      state: { id, title, time, type, image },
+      state: { id, title, time, type, image, description },
     });
   };
 
   return (
-    <div className="border border-gray-300 md:w-1/2 md:mx-auto lg:w-[60%] lg:grid lg:grid-cols-2 lg:gap-8 xl:w-full">
-      <img
-        className="w-full h-[278px] object-cover lg:h-[285px] cursor-pointer"
-        src={image}
-        alt={title}
+    <article className="grid overflow-hidden border border-gray-200 bg-white md:grid-cols-[minmax(220px,0.8fr)_1fr]">
+      <button
+        type="button"
         onClick={handleClick}
-      />
-      <div className="flex flex-col gap-2 p-4 font-thin lg:self-center">
-        <h3 className="text-xl cursor-pointer" onClick={handleClick}>
-          {title}
-        </h3>
-        <p>{time}</p>
-        <p>{type}</p>
-        <button
-          className="w-full p-2 bg-teal-500 text-white font-thin font-lg lg:w-1/2 xl:w-1/3 my-2 cursor-pointer"
-          onClick={handleClick}
-        >
-          Book Now
-        </button>
+        className="group block h-[240px] w-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-black md:h-full"
+        aria-label={`Book ${title}`}
+      >
+        <img
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          src={image}
+          alt={title}
+          loading="lazy"
+        />
+      </button>
+
+      <div className="flex min-h-[260px] flex-col gap-4 p-5 sm:p-6 lg:p-8">
+        <div>
+          <p className="mb-3 text-xs tracking-[3px] text-gray-500">{type}</p>
+          <button
+            type="button"
+            className="text-left text-xl transition-colors hover:text-red-400 focus:outline-none focus:ring-2 focus:ring-black sm:text-2xl"
+            onClick={handleClick}
+          >
+            {title}
+          </button>
+        </div>
+
+        <p className="font-thin text-gray-600">{description}</p>
+
+        <div className="mt-auto flex flex-col gap-4 border-t border-gray-200 pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-gray-600">{time}</p>
+          <button
+            className="inline-flex min-h-11 items-center justify-center gap-2 bg-black px-5 py-3 text-sm tracking-[2px] text-white transition-colors hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer"
+            onClick={handleClick}
+          >
+            Book Now
+            <span aria-hidden="true">-&gt;</span>
+          </button>
+        </div>
       </div>
-    </div>
+    </article>
   );
 };
 

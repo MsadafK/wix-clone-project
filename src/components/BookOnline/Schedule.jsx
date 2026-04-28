@@ -1,18 +1,18 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
-  format,
   addMinutes,
-  setHours,
-  setMinutes,
+  format,
+  isAfter,
+  isBefore,
   isSunday,
   isToday,
-  isBefore,
-  isAfter,
-  setSeconds,
+  setHours,
   setMilliseconds,
+  setMinutes,
+  setSeconds,
   startOfDay,
 } from "date-fns";
 import { getServiceById } from "../../data/services";
@@ -23,7 +23,11 @@ const Schedule = () => {
   const [selectedTime, setSelectedTime] = useState("");
   const [availableTimes, setAvailableTimes] = useState([]);
 
-  // Generate 60-minute time slots from 10:00 AM to 5:00 PM
+  const { scheduleId } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const cardData = location.state || getServiceById(scheduleId);
+
   useEffect(() => {
     const startTime = setMinutes(setHours(new Date(), 10), 0);
     const endTime = setMinutes(setHours(new Date(), 17), 0);
@@ -39,13 +43,11 @@ const Schedule = () => {
     setAvailableTimes(times);
   }, []);
 
-  // Disable past dates and Sundays
   const isDateSelectable = (date) => {
     const today = startOfDay(new Date());
     return date >= today && !isSunday(date);
   };
 
-  // Filter slots based on date
   const filteredTimes = availableTimes.filter((time) => {
     const selectedDateAtTime = setSeconds(
       setMilliseconds(new Date(selectedDate), 0),
@@ -54,19 +56,14 @@ const Schedule = () => {
     selectedDateAtTime.setHours(time.getHours(), time.getMinutes());
 
     if (isToday(selectedDate)) {
-      const now = new Date();
-      return isAfter(selectedDateAtTime, now);
+      return isAfter(selectedDateAtTime, new Date());
     }
 
     return true;
   });
 
-  const canContinue = selectedDate && selectedTime && timezone;
-
-  const { scheduleId } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const cardData = location.state || getServiceById(scheduleId);
+  const selectedDateLabel = format(selectedDate, "EEE, MMM d, yyyy");
+  const canContinue = Boolean(selectedDate && selectedTime && timezone);
 
   if (!cardData) {
     return (
@@ -74,7 +71,7 @@ const Schedule = () => {
         <h2 className="text-2xl mb-4">Service not found</h2>
         <button
           onClick={() => navigate("/book-online")}
-          className="bg-black text-white px-4 py-2 rounded cursor-pointer"
+          className="bg-black text-white px-4 py-2 cursor-pointer"
         >
           View services
         </button>
@@ -83,110 +80,107 @@ const Schedule = () => {
   }
 
   return (
-    <section className="flex flex-col gap-4 items-start md:w-[425px] md:mx-auto xl:w-[1100px] p-4 xl:mb-12">
-      {/* Back Button */}
+    <section className="px-4 py-8 xl:w-[1100px] xl:mx-auto xl:py-14">
       <button
-        onClick={() => navigate(-1)}
-        className="text-sm xl:text-lg text-gray-500 hover:underline mb-4 cursor-pointer"
+        onClick={() => navigate("/book-online")}
+        className="mb-6 text-sm text-gray-500 hover:text-black hover:underline cursor-pointer"
       >
-        {"< Back"}
+        {"< Back to services"}
       </button>
-      {/* title and text */}
-      <div className="font-thin">
-        <h3 className="text-xl">Schedule your service</h3>
-        <p>
-          Check out our availability and book the date and time that works for
-          you
+
+      <div className="mb-8 grid gap-3 md:grid-cols-[1fr_minmax(220px,360px)] md:items-end">
+        <div>
+          <p className="mb-3 text-xs tracking-[4px] text-gray-500">SCHEDULE</p>
+          <h1 className="text-2xl sm:text-3xl">Select a date and time</h1>
+        </div>
+        <p className="font-thin text-gray-600 md:text-right">
+          Availability is shown in one-hour windows. Sundays and past dates are
+          unavailable.
         </p>
       </div>
-      {/* ----------- */}
-      <div className="w-full font-sans flex flex-col gap-4 xl:grid xl:grid-cols-3 xl:gap-0">
-        <h4 className="text-xl xl:border-b-2 xl:border-gray-400">
-          Select a Date and Time
-        </h4>
-        {/* Timezone Dropdown */}
-        <div className="font-thin text-gray-300 xl:mr-8">
-          <label className="block mb-2 font-medium sr-only">Time Zone</label>
-          <select
-            value={timezone}
-            onChange={(e) => setTimezone(e.target.value)}
-            className="w-full border-b-2 border-gray-400 py-2 text-gray-800"
-          >
-            <option value="PDT">Pacific Daylight Time (PDT)</option>
-            <option value="IST">Indian Standard Time (GMT+5:30)</option>
-          </select>
-        </div>
 
-        {/* Always visible calendar */}
-        <div className="w-full flex justify-center items-center xl:col-start-1 xl:row-start-2 xl:justify-start xl:mt-4">
-          <label className="block mb-2 sr-only">Select a Date and Time</label>
-          <DatePicker
-            inline
-            selected={selectedDate}
-            onChange={(date) => {
-              setSelectedDate(date);
-              setSelectedTime("");
-            }}
-            filterDate={isDateSelectable}
-            minDate={new Date()}
-          />
-        </div>
-
-        {/* Time slots grid */}
-        <div className="xl:col-start-2 xl:row-start-2 xl:mt-4 xl:mr-8">
-          <label className="block mb-2 font-thin">{`Availability for ${selectedDate
-            .toString()
-            .slice(0, 15)}`}</label>
-          {filteredTimes.length > 0 ? (
-            <div className="grid grid-cols-2 gap-4">
-              {filteredTimes.map((time, idx) => {
-                const timeLabel = format(time, "hh:mm a");
-                const isSelected = selectedTime === timeLabel;
-
-                return (
-                  <button
-                    key={idx}
-                    onClick={() => setSelectedTime(timeLabel)}
-                    className={`border rounded px-4 py-2 text-sm ${
-                      isSelected
-                        ? "bg-blue-600 text-white"
-                        : "hover:bg-blue-100"
-                    } cursor-pointer`}
-                  >
-                    {timeLabel}
-                  </button>
-                );
-              })}
-            </div>
-          ) : (
-            <p className="text-sm text-gray-500">
-              No time slots available today.
-            </p>
-          )}
-        </div>
-        <h5 className="xl:text-xl xl:col-start-3 xl:row-start-1">
-          Service Details
-        </h5>
-        <div className="mb-4 xl:mt-4">
-          {/* Mini Card */}
-          <div className="flex items-center gap-4">
-            <div className="flex flex-col gap-1">
-              <h2 className="text-md">{cardData.title}</h2>
-              <p className="text-sm text-gray-600">{`${selectedDate
-                .toString()
-                .slice(0, 15)} at ${selectedTime}`}</p>
-              <p className="text-sm text-gray-600">Staff Member #1</p>
-              <p className="text-sm text-gray-600">{cardData.time}</p>
-              <p className="text-sm text-gray-500">{cardData.type}</p>
-            </div>
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,340px)]">
+        <div className="grid gap-6 md:grid-cols-[minmax(280px,360px)_1fr]">
+          <div className="overflow-hidden border border-gray-200 bg-white p-3 sm:p-4">
+            <DatePicker
+              inline
+              selected={selectedDate}
+              onChange={(date) => {
+                setSelectedDate(date);
+                setSelectedTime("");
+              }}
+              filterDate={isDateSelectable}
+              minDate={new Date()}
+            />
           </div>
-          {/* Continue Button */}
+
+          <div className="border border-gray-200 bg-white p-4 sm:p-6">
+            <label className="mb-3 block text-sm tracking-[2px] text-gray-500">
+              TIME ZONE
+            </label>
+            <select
+              value={timezone}
+              onChange={(e) => setTimezone(e.target.value)}
+              className="mb-6 min-h-11 w-full border border-gray-300 bg-white px-3 py-2 text-gray-800"
+            >
+              <option value="PDT">Pacific Daylight Time (PDT)</option>
+              <option value="IST">Indian Standard Time (GMT+5:30)</option>
+            </select>
+
+            <p className="mb-4 text-sm tracking-[2px] text-gray-500">
+              {selectedDateLabel}
+            </p>
+
+            {filteredTimes.length > 0 ? (
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-3">
+                {filteredTimes.map((time) => {
+                  const timeLabel = format(time, "hh:mm a");
+                  const isSelected = selectedTime === timeLabel;
+
+                  return (
+                    <button
+                      key={timeLabel}
+                      onClick={() => setSelectedTime(timeLabel)}
+                      className={`min-h-11 border px-3 py-2 text-sm transition-colors cursor-pointer ${
+                        isSelected
+                          ? "border-black bg-black text-white"
+                          : "border-gray-300 hover:border-black"
+                      }`}
+                    >
+                      {timeLabel}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">
+                No time slots available today.
+              </p>
+            )}
+          </div>
+        </div>
+
+        <aside className="border border-gray-200 bg-gray-50 p-5 sm:p-6 lg:sticky lg:top-28 lg:self-start">
+          <p className="mb-3 text-xs tracking-[4px] text-gray-500">
+            SERVICE DETAILS
+          </p>
+          <h2 className="mb-3 text-xl">{cardData.title}</h2>
+          <p className="mb-5 font-thin text-gray-600">{cardData.description}</p>
+
+          <div className="grid gap-3 border-t border-gray-200 pt-5 text-sm text-gray-600">
+            <p>{cardData.type}</p>
+            <p>{cardData.time}</p>
+            <p>{selectedDateLabel}</p>
+            <p>{selectedTime || "Choose a time"}</p>
+            <p>{timezone}</p>
+          </div>
+
           <button
-            className={`w-full py-2 px-4 text-white rounded ${
+            className={`mt-8 min-h-12 w-full px-4 py-3 text-sm tracking-[2px] text-white transition-colors ${
               canContinue
-                ? "bg-blue-600 hover:bg-blue-700"
+                ? "bg-black hover:bg-red-400 cursor-pointer"
                 : "bg-gray-400 cursor-not-allowed"
-            } mt-12 cursor-pointer`}
+            }`}
             disabled={!canContinue}
             onClick={() =>
               navigate(`/book-online/${scheduleId}/booking-form`, {
@@ -201,7 +195,7 @@ const Schedule = () => {
           >
             Continue
           </button>
-        </div>
+        </aside>
       </div>
     </section>
   );

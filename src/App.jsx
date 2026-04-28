@@ -10,10 +10,13 @@ import Schedule from "./components/BookOnline/Schedule";
 import BookingForm from "./components/BookOnline/BookingForm";
 import BookingSuccess from "./components/BookOnline/BookingSuccess";
 import DetailsPage from "./components/pages/DetailsPage";
+import NotFound from "./components/pages/NotFound";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   return (
     <div className="font-rubik">
+      <ScrollToTop />
       <Header />
       <Main>
         <Routes>
@@ -34,6 +37,7 @@ const App = () => {
             element={<BookingSuccess />}
           />
           <Route path="/details/:id" element={<DetailsPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Main>
       <Footer />

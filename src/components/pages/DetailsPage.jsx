@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProjectById, projects } from "../../data/projects";
 
@@ -9,6 +9,24 @@ const DetailsPage = () => {
   const imageId = Number(id);
 
   const currentProject = getProjectById(imageId);
+
+  useEffect(() => {
+    if (!isLightboxOpen) {
+      return undefined;
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsLightboxOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isLightboxOpen]);
 
   const handlePrevious = () => {
     if (imageId > 1) {
@@ -83,7 +101,12 @@ const DetailsPage = () => {
       </div>
 
       {isLightboxOpen && (
-        <div className="fixed inset-0 bg-white/90 flex items-center justify-center z-50">
+        <div
+          className="fixed inset-0 bg-white/90 flex items-center justify-center z-50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${currentProject.title} image preview`}
+        >
           <button
             onClick={() => setIsLightboxOpen(false)}
             className="absolute top-6 right-12 text-black text-4xl cursor-pointer"

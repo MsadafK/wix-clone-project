@@ -1,9 +1,8 @@
-import React from "react";
 import heroImage from "../assets/heroImage.avif";
 
 const Hero = () => {
   return (
-    <section className="flex justify-center items-center relative -z-1">
+    <section className="flex justify-center items-center relative">
       {/* hero image */}
       <img
         src={heroImage}

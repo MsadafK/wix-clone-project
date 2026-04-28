@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
@@ -13,7 +13,9 @@ import {
   isAfter,
   setSeconds,
   setMilliseconds,
+  startOfDay,
 } from "date-fns";
+import { getServiceById } from "../../data/services";
 
 const Schedule = () => {
   const [timezone, setTimezone] = useState("PDT");
@@ -39,7 +41,7 @@ const Schedule = () => {
 
   // Disable past dates and Sundays
   const isDateSelectable = (date) => {
-    const today = new Date();
+    const today = startOfDay(new Date());
     return date >= today && !isSunday(date);
   };
 
@@ -64,11 +66,20 @@ const Schedule = () => {
   const { scheduleId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const cardData = location.state;
+  const cardData = location.state || getServiceById(scheduleId);
 
   if (!cardData) {
-    navigate("/book-online"); // Optional fallback
-    return null;
+    return (
+      <section className="p-8 text-center">
+        <h2 className="text-2xl mb-4">Service not found</h2>
+        <button
+          onClick={() => navigate("/book-online")}
+          className="bg-black text-white px-4 py-2 rounded cursor-pointer"
+        >
+          View services
+        </button>
+      </section>
+    );
   }
 
   return (
@@ -154,7 +165,7 @@ const Schedule = () => {
           )}
         </div>
         <h5 className="xl:text-xl xl:col-start-3 xl:row-start-1">
-          Servic Details
+          Service Details
         </h5>
         <div className="mb-4 xl:mt-4">
           {/* Mini Card */}

@@ -1,80 +1,53 @@
-Internship Assignment - Wix Clone Project
+# Wix Clone Project
 
-This project is part of my internship assignment, where I was tasked with building a responsive landing page for a fictional template service. The project demonstrates my ability to implement core web technologies such as HTML, CSS, and JavaScript while focusing on creating an intuitive and responsive design.
+A React portfolio clone inspired by the Wix art director template. The project is being polished for portfolio use with a stronger content model, cleaner routing, and a more complete booking/demo experience.
 
-Features
-Responsive Layout: The page adjusts to different screen sizes, ensuring an optimal experience on both mobile and desktop devices.
+## Tech Stack
 
-Interactive Elements: Hover effects and interactive buttons for a dynamic user experience.
+- React 19
+- React Router 7
+- Vite 6
+- Tailwind CSS 4
+- date-fns
+- react-datepicker
 
-Email Subscription Form: Includes form validation to ensure that users cannot submit an empty or incorrectly formatted email address.
+## Features
 
-Custom SVG Graphics: Used throughout the project for visual elements, including icons and illustrations.
+- Responsive portfolio homepage
+- Project detail pages with lightbox preview
+- Show reel page with local video asset
+- About/contact page with validation and success state
+- Book-online flow with service selection, schedule selection, and booking form
+- Shared project and service data files for easier maintenance
 
-Technologies Used
-HTML: For structuring the content and creating the page layout.
+## Getting Started
 
-Tailwind CSS: For styling the page and implementing the responsive design.
+```bash
+npm install
+npm run dev
+```
 
-JavaScript (React.js): For form validation and handling interactive elements.
+## Quality Checks
 
-React router v6: For routing purposes.
+```bash
+npm run lint
+npm run build
+```
 
-Installation
-To run this project locally, follow these steps:
+## Deployment
 
-Clone the repository:
+The app is configured for GitHub Pages with the base path:
 
-bash
-Copy
-Edit
-git clone https://github.com/yourusername/wix-clone-project.git
-Navigate into the project directory:
+```txt
+/wix-clone-project/
+```
 
-bash
-Copy
-Edit
-cd wix-clone-project
-Open the index.html file in your browser to view the project.
+You can override it with:
 
-Usage
-Upon opening the project in your browser, you'll see a landing page that is fully responsive and includes a newsletter subscription form.
+```bash
+VITE_BASE_PATH=/ npm run build
+```
 
-The email input field in the form will show an error if left empty or contains an invalid email format.
+## Current Polish Plan
 
-The page features hover states for buttons and interactive elements, providing feedback to the user.
-
-File Structure
-plaintext
-Copy
-Edit
-wix-clone-project/
-│
-├── index.html # Main HTML file
-├── style.css # Main CSS file
-├── script.js # JavaScript file for form validation and interactions
-├── images/ # Folder containing images (logos, icons, etc.)
-├── assets/ # Folder for assets such as SVGs
-└── README.md # This file
-Development
-If you wish to contribute to the development of this project or customize it further, here are some steps you can follow:
-
-Clone the repository as shown above.
-
-Modify the code as needed. The CSS file contains media queries to handle different screen sizes, and the JavaScript file handles basic form validation.
-
-Test the responsiveness by resizing your browser window or using developer tools to simulate different devices.
-
-Contributing
-If you'd like to contribute to this project, feel free to fork the repository and submit a pull request. Please ensure that your code adheres to best practices and is thoroughly tested.
-
-License
-This project is licensed under the MIT License.
-
-Acknowledgments
-The design for this project was created by me during my internship assignment task.
-
-Contact
-For any inquiries, feel free to reach out to me at mssadaf0@gmail.com
-
-<!-- https://www.wix.com/demone2/art-director-portfolio -->
+See `PROJECT_AUDIT_ROADMAP.md` for the full issue audit and improvement roadmap.

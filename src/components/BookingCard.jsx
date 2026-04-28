@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const BookingCard = ({ title, time, type, image, id }) => {
@@ -15,7 +14,7 @@ const BookingCard = ({ title, time, type, image, id }) => {
       <img
         className="w-full h-[278px] object-cover lg:h-[285px] cursor-pointer"
         src={image}
-        alt=""
+        alt={title}
         onClick={handleClick}
       />
       <div className="flex flex-col gap-2 p-4 font-thin lg:self-center">

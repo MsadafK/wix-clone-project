@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import facebookIcon from "../../assets/facebookIcon.avif";
 import instaIcon from "../../assets/instaIcon.avif";
 import twitterIcon from "../../assets/twitterIcon.avif";
@@ -31,7 +31,7 @@ const About = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let tempErrors = {};
+    const tempErrors = {};
 
     if (!formData.firstName.trim()) {
       tempErrors.firstName = "! Enter a first name.";
@@ -45,62 +45,52 @@ const About = () => {
 
     if (Object.keys(tempErrors).length > 0) {
       setErrors(tempErrors);
-    } else {
-      // No errors, pretend we submitted
-      setErrors({});
-      setFormSubmitted(true);
+      return;
     }
+
+    setErrors({});
+    setFormSubmitted(true);
   };
 
   return (
     <section className="md:grid md:grid-cols-2 xl:w-[1100px] xl:mx-auto xl:gap-12 xl:py-16">
-      {/* about container */}
       <div className="md:col-span-2 flex flex-col gap-8 px-4 py-8 text-center md:grid md:grid-cols-2 xl:py-16">
         <img
           className="md:row-span-2 md:self-center"
-          src="../../../public/images/about-image.avif"
-          alt=""
+          src={`${import.meta.env.BASE_URL}images/about-image.avif`}
+          alt="Adam Scharf portrait"
         />
         <h3 className="text-lg md:col-start-2 md:row-start-1">
           ABOUT ADAM SCHARF
         </h3>
         <p className="font-thin md:col-start-2 md:row-start-1 md:mt-auto md:pt-12">
-          I'm a paragraph. Click here to add your own text and edit me. It’s
-          easy. Just click “Edit Text” or double click me to add your own
-          content and make changes to the font. Feel free to drag and drop me
-          anywhere you like on your page. I’m a great place for you to tell a
-          story and let your users know a little more about you.
+          Adam Scharf is an art director focused on visual systems for music,
+          fashion, and commercial storytelling. His work blends cinematic
+          references, clean composition, and campaign-ready production thinking.
         </p>
         <p className="font-thin md:col-start-2 md:row-start-2">
-          This is a great space to write long text about your company and your
-          services. You can use this space to go into a little more detail about
-          your company. Talk about your team and what services you provide. Tell
-          your visitors the story of how you came up with the idea for your
-          business and what makes you different from your competitors. Make your
-          company stand out and show your visitors who you are.
+          This React rebuild keeps the original Wix-inspired visual direction
+          while tightening the portfolio experience: clearer case studies,
+          stronger project structure, and a booking flow that feels intentional.
         </p>
       </div>
 
-      {/* awards and recognitions */}
       <div className="font-thin flex flex-col gap-8 px-4 py-8 text-center">
         <h3 className="text-lg">AWARDS AND RECOGNITIONS</h3>
-        <div className="">
-          <p>2035 - Add Award Name - Add City</p>
-          <p>2035 - Add Award Name - Add City</p>
-          <p>2035 - Add Award Name - Add City</p>
-          <p>2035 - Add Award Name - Add City</p>
-          <p>2035 - Add Award Name - Add City</p>
-          <p>2035 - Add Award Name - Add City</p>
+        <div>
+          <p>2025 - Shortlisted Visual Direction - Digital Campaign Awards</p>
+          <p>2024 - Best Music Campaign Concept - Studio Showcase</p>
+          <p>2024 - Editorial Art Direction Selection - Creative Review</p>
+          <p>2023 - Emerging Portfolio Feature - Motion Design Week</p>
         </div>
       </div>
 
-      {/* contact */}
       <div className="font-thin flex flex-col gap-8 px-4 py-8 text-center">
         <h3 className="text-lg">CONTACT</h3>
-        <div className="">
-          <p>info@mysite.com</p>
-          <p>—</p>
-          <p>Tel: 123-456-7890</p>
+        <div>
+          <p>hello@adamscharf.studio</p>
+          <p>-</p>
+          <p>Available for selected creative direction projects</p>
         </div>
         <div className="flex justify-center items-center gap-4 lg:order-2">
           <a
@@ -130,16 +120,15 @@ const About = () => {
         </div>
       </div>
 
-      {/* contact form */}
       <div className="font-thin px-4 py-8 text-center md:col-span-2 md:w-1/2 md:mx-auto xl:w-[75%]">
         <form
           className="flex flex-col gap-4 xl:grid xl:grid-cols-2"
           onSubmit={handleSubmit}
         >
-          {/* First Name */}
           <div className="flex flex-col items-start gap-2">
             <label htmlFor="firstName">First Name *</label>
             <input
+              id="firstName"
               type="text"
               name="firstName"
               value={formData.firstName}
@@ -151,10 +140,10 @@ const About = () => {
             )}
           </div>
 
-          {/* Last Name */}
           <div className="flex flex-col items-start gap-2">
             <label htmlFor="lastName">Last Name *</label>
             <input
+              id="lastName"
               type="text"
               name="lastName"
               value={formData.lastName}
@@ -166,10 +155,10 @@ const About = () => {
             )}
           </div>
 
-          {/* Email */}
           <div className="flex flex-col items-start gap-2">
             <label htmlFor="email">Email *</label>
             <input
+              id="email"
               type="email"
               name="email"
               value={formData.email}
@@ -181,10 +170,10 @@ const About = () => {
             )}
           </div>
 
-          {/* Subject */}
           <div className="flex flex-col items-start gap-2">
             <label htmlFor="subject">Subject</label>
             <input
+              id="subject"
               type="text"
               name="subject"
               value={formData.subject}
@@ -193,10 +182,10 @@ const About = () => {
             />
           </div>
 
-          {/* Message */}
           <div className="flex flex-col items-start gap-2 xl:col-span-2">
             <label htmlFor="message">Message</label>
             <textarea
+              id="message"
               name="message"
               rows="4"
               value={formData.message}
@@ -213,10 +202,10 @@ const About = () => {
           </button>
         </form>
 
-        {/* Show after form submit */}
         {formSubmitted && (
           <p className="text-center mt-4">
-            ! We could not submit your form. Try again later.
+            Thanks for reaching out. This demo keeps the message local, but the
+            form now shows a complete success state.
           </p>
         )}
       </div>

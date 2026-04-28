@@ -3,11 +3,11 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   
   return {
     plugins: [react(), tailwindcss()],
-    base: env.VITE_BASE_PATH || "/wix-clone-project",
+    base: env.VITE_BASE_PATH || "/wix-clone-project/",
   };
 });

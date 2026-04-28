@@ -1,29 +1,40 @@
 const ShowReel = () => {
   return (
-    <section className="p-4 grid gap-4 xl:w-[1100px] xl:mx-auto xl:py-16">
-      <video
-        controls
-        poster={`${import.meta.env.BASE_URL}images/vimeo-video-cover.png`}
-        className="h-[250px] md:w-full object-cover shadow-md md:h-[400px] lg:h-[500px]"
-      >
-        <source
-          src={`${import.meta.env.BASE_URL}videos/vimeo-video.mp4`}
-          type="video/mp4"
-        />
-        Your browser does not support the video tag.
-      </video>
+    <section className="px-4 py-8 xl:mx-auto xl:w-[1100px] xl:py-14">
+      <div className="mb-8 grid gap-3 md:grid-cols-[1fr_minmax(220px,360px)] md:items-end">
+        <div>
+          <p className="mb-3 text-xs tracking-[4px] text-gray-500">SHOW REEL</p>
+          <h1 className="text-2xl sm:text-3xl">Motion direction reel</h1>
+        </div>
+        <p className="font-thin text-gray-600 md:text-right">
+          A compact motion edit across music, fashion, and commercial concepts.
+        </p>
+      </div>
 
-      <div className="flex flex-col gap-4 xl:grid xl:grid-cols-2 pt-8 border-t-2">
-        <h3 className="text-lg">SHOW REEL</h3>
-        <div className="font-thin xl:col-start-1">
+      <div className="overflow-hidden bg-black shadow-sm">
+        <video
+          controls
+          poster={`${import.meta.env.BASE_URL}images/vimeo-video-cover.png`}
+          className="aspect-video w-full object-cover"
+        >
+          <source
+            src={`${import.meta.env.BASE_URL}videos/vimeo-video.mp4`}
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div className="mt-8 grid gap-6 border-t border-gray-200 pt-8 lg:grid-cols-[minmax(0,0.7fr)_1fr]">
+        <div className="grid gap-1 font-thin text-gray-600">
           <p>Year of production: 2025</p>
           <p>Running Time: 2:30 min</p>
           <p>Color / Sound / Subtitled</p>
         </div>
-        <p className="font-thin xl:row-start-1 xl:col-start-2 xl:row-span-2">
-          A compact motion reel presenting art direction studies across music,
-          fashion, and commercial concepts. The edit focuses on visual rhythm,
-          image sequencing, and campaign mood rather than a single linear story.
+        <p className="font-thin text-gray-700">
+          The edit focuses on visual rhythm, image sequencing, and campaign
+          mood rather than a single linear story. It acts as a quick survey of
+          the portfolio's tone and motion language.
         </p>
       </div>
     </section>

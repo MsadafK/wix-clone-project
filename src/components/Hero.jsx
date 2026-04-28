@@ -2,19 +2,20 @@ import heroImage from "../assets/heroImage.avif";
 
 const Hero = () => {
   return (
-    <section className="flex justify-center items-center relative">
-      {/* hero image */}
+    <section className="relative flex min-h-[260px] items-center justify-center overflow-hidden sm:min-h-[340px] lg:min-h-[480px] xl:min-h-[560px]">
       <img
         src={heroImage}
-        alt="Hero image"
-        className="w-full h-[180px] object-cover md:h-[300px] lg:h-[400px] xl:h-[500px]"
+        alt="Adam Scharf art direction hero"
+        className="absolute inset-0 h-full w-full object-cover"
       />
-      {/* title and text container */}
-      <div className="border p-4 flex flex-col text-center gap-2 text-white absolute">
-        <h1 className="text-[1.5rem] tracking-[4px] lg:text-[1.75rem] xl:text-[2rem]">
+      <div className="absolute inset-0 bg-black/20"></div>
+      <div className="relative mx-4 flex max-w-[92vw] flex-col gap-3 border border-white px-5 py-5 text-center text-white sm:px-8 sm:py-7">
+        <h1 className="text-2xl tracking-[4px] sm:text-3xl lg:text-4xl">
           ADAM SCHARF
         </h1>
-        <p className="tracking-[4px] font-thin">ART DIRECTOR</p>
+        <p className="text-sm tracking-[4px] font-thin sm:text-base">
+          ART DIRECTOR
+        </p>
       </div>
     </section>
   );

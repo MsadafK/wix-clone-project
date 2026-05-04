@@ -1,53 +1,194 @@
-# Wix Clone Project
+# 🎬 Wix Clone – Creative Portfolio (React + Vite)
 
-A React portfolio clone inspired by the Wix art director template. The project is being polished for portfolio use with a stronger content model, cleaner routing, and a more complete booking/demo experience.
+A modern, visually-driven **portfolio website clone** inspired by Wix-style creative direction layouts.
+Built with **React, Vite, and Tailwind CSS**, this project focuses on **clean UI, storytelling visuals, and a booking flow** — exactly what creative professionals need to impress clients.
 
-## Tech Stack
+---
 
-- React 19
-- React Router 7
-- Vite 6
-- Tailwind CSS 4
-- date-fns
-- react-datepicker
+## 🚀 Live Demo
 
-## Features
+👉 [https://msadafk.github.io/wix-clone-project](https://msadafk.github.io/wix-clone-project)
 
-- Responsive portfolio homepage
-- Project detail pages with lightbox preview
-- Show reel page with local video asset
-- About/contact page with validation and success state
-- Book-online flow with service selection, schedule selection, and booking form
-- Shared project and service data files for easier maintenance
+---
 
-## Getting Started
+## 📌 Overview
+
+This project is a **pixel-inspired rebuild** of a creative portfolio website featuring:
+
+* Cinematic hero section
+* Clean project showcase grid
+* About page storytelling
+* Booking system UI
+* Smooth navigation experience
+
+The goal was not just cloning design — but **understanding structure, UX flow, and component architecture**.
+
+---
+
+## 🧠 What I Focused On
+
+* Converting a **design-heavy UI into reusable React components**
+* Maintaining **visual hierarchy & spacing precision**
+* Creating a **realistic booking experience flow**
+* Structuring project like a **production-ready frontend app**
+
+---
+
+## 🖼️ Screens Preview
+
+### 🏠 Homepage
+
+![Homepage](./public/homepage.png)
+
+---
+
+### 👤 About Page
+
+![About](./public/about.png)
+
+---
+
+### 📅 Book Online
+
+![Book Online](./public/book-online.png)
+
+---
+
+### 📌 Footer
+
+![Footer](./public/footer.png)
+
+---
+
+## 📌 Overview
+
+This project is a **creative portfolio clone** featuring:
+
+* Cinematic hero section
+* Clean project showcase
+* About storytelling layout
+* Booking flow UI
+
+---
+
+## 🛠️ Tech Stack
+
+| Category      | Tech Used        |
+| ------------- | ---------------- |
+| Framework     | React 19         |
+| Build Tool    | Vite             |
+| Styling       | Tailwind CSS     |
+| Routing       | React Router v7  |
+| Date Handling | date-fns         |
+| Date Picker   | react-datepicker |
+| Deployment    | GitHub Pages     |
+
+---
+
+## 📂 Project Structure
+
+```
+wix-clone-project/
+│
+├── public/
+│   ├── images/
+│   ├── videos/
+│   └── preview images
+│
+├── src/
+│   ├── assets/        # images, icons
+│   ├── components/
+│   │   ├── BookOnline/
+│   │   ├── pages/
+│   │   ├── Header.jsx
+│   │   ├── Footer.jsx
+│   │   └── reusable UI
+│   │
+│   ├── data/          # services & projects data
+│   ├── App.jsx
+│   └── main.jsx
+│
+└── vite.config.js
+```
+
+---
+
+## ⚙️ Installation & Setup
 
 ```bash
+# Clone repo
+git clone https://github.com/msadafk/wix-clone-project.git
+
+# Go to project
+cd wix-clone-project
+
+# Install dependencies
 npm install
+
+# Run locally
 npm run dev
 ```
 
-## Quality Checks
+---
+
+## 🚀 Deployment
 
 ```bash
-npm run lint
-npm run build
+npm run deploy
 ```
 
-## Deployment
+Deployed using **gh-pages** to GitHub Pages.
 
-The app is configured for GitHub Pages with the base path:
+---
 
-```txt
-/wix-clone-project/
-```
+## ✨ Key Features
 
-You can override it with:
+* 🎥 Cinematic Hero Section
+* 🧩 Component-based architecture
+* 📅 Interactive booking UI
+* 📱 Fully responsive design
+* ⚡ Fast performance with Vite
+* 🎨 Clean & minimal UI inspired by creative portfolios
 
-```bash
-VITE_BASE_PATH=/ npm run build
-```
+---
 
-## Current Polish Plan
+## 📈 What I Learned
 
-See `PROJECT_AUDIT_ROADMAP.md` for the full issue audit and improvement roadmap.
+* How to **break complex UI into reusable components**
+* Managing **assets (images/videos) in Vite + GitHub Pages**
+* Creating a **real-world booking flow UI**
+* Improving **design-to-code accuracy**
+* Structuring projects like a **professional frontend developer**
+
+---
+
+## 🎯 Future Improvements
+
+* Add **backend for real booking system**
+* Improve **animations (Framer Motion)**
+* Add **CMS integration**
+* Optimize images for performance
+* Add dark mode 🌙
+
+---
+
+## 👨‍💻 Author
+
+**Sadaf (Frontend Developer)**
+Focused on building clean, modern, and client-ready UI.
+
+---
+
+## ⭐ If You Like This Project
+
+Give it a ⭐ on GitHub — it helps a lot!
+
+---
+
+## 📬 Feedback
+
+If you have suggestions or improvements, feel free to open an issue or connect!
+
+---
+
+If you want, I can also make a **next-level README (premium style)** with badges, GIF previews, and recruiter-focused storytelling — that one actually helps in getting interviews.

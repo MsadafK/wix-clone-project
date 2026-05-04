@@ -189,6 +189,4 @@ Give it a ⭐ on GitHub — it helps a lot!
 
 If you have suggestions or improvements, feel free to open an issue or connect!
 
----
 
-If you want, I can also make a **next-level README (premium style)** with badges, GIF previews, and recruiter-focused storytelling — that one actually helps in getting interviews.

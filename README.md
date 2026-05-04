@@ -174,12 +174,15 @@ Deployed using **gh-pages** to GitHub Pages.
 
 ## 👨‍💻 Author
 
-**Sadaf (Frontend Developer)**
-Focused on building clean, modern, and client-ready UI.
+**Mohd Sadaf**
+Frontend Developer
+
+* [![GitHub](https://img.shields.io/badge/GitHub-000?logo=github&logoColor=white)](https://github.com/MsadafK)
+* [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mohd-sadaf/)
 
 ---
 
-## ⭐ If You Like This Project
+## ⭐ If you like this project
 
 Give it a ⭐ on GitHub — it helps a lot!
 
